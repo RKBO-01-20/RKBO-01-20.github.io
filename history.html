@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="main.css" />
+
+    <!--Icons-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+
+    <title>Шпаргалка история</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">РКБО-01-20</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="inf.html">Информатика</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="matan.html">Матан</a>
+            </li>
+            <li class="nav-item dropdown active">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                История
+              </a>
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdown"
+                id="navbar"
+              ></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div class="text-center py-5 px-3">
+        <h1>Сессия по математическому анализу</h1>
+        <p class="lead">Шпоры и калькуляторы для сдачи матана.<br /></p>
+      </div>
+
+      <div class="row gy-5">
+        <!--Full text search-->
+        <div>
+          <div class="row">
+            <h2 id="full-text">Поиск ответа по вопросам</h2>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-text">
+                    Полно-текстовый поиск ответа по вопросам в банке.
+                    Скорость поиска напрямую зависит от твоей тачки.
+                  </p>
+
+                  <div class="mb-3">
+                    <label for="limSeek" class="form-label"
+                      >Часть вопроса</label
+                    >
+                    <input
+                      class="form-control"
+                      id="quest"
+                      oninput="find(this)"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <ul class="list-group" id="answers"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted"
+          >Собственность группы РКБО-01-20. Изготовил сие поделие
+          <a href="https://github.com/GreenFantomas">GreenFantomas</a></span
+        >
+      </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+
+    <!--Flexsearch-->
+    <script src="https://cdn.jsdelivr.net/gh/nextapps-de/flexsearch@master/dist/flexsearch.min.js"></script>
+
+    <script src="gui.js"></script>
+    <script src="history.js"></script>
+    <script>
+      var answersTable = `<li class="list-group-item">X<p><b>Ответ:</b> Y</p></li>`;
+
+      String.prototype.replaceAll = function (strReplace, strWith) {
+        // See http://stackoverflow.com/a/3561711/556609
+        var esc = strReplace.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+        var reg = new RegExp(esc, "ig");
+        return this.replace(reg, strWith);
+      };
+
+      function find(element) {
+        arr = search(element.value);
+        $("#answers").html("");
+        for (i = 0; i < arr.length; i++) {
+          quest = histQuest[arr[i]];
+          answ = histAnsw[arr[i]];
+          $("#answers").append(
+            answersTable
+              .replaceAll("X", quest)
+              .replaceAll("Y", answ)
+              .replaceAll(element.value, "<mark>" + element.value + "</mark>")
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
