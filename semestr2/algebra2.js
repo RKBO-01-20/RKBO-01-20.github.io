@@ -61,18 +61,3 @@ function M(ik, jk, A){
     }
     return m
 }
-
-A = [
-    [1, 2, 3],
-    [3, 4, 5],
-    [4, 9, 1]
-]
-
-B = [
-    [2, 2],
-    [4, 5],
-    [3, 9],
-]
-
-console.log(matMulti(A, B))
-console.log(det(A))

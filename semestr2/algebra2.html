@@ -99,7 +99,7 @@
                     <label for="deter_mat_table" class="form-label"
                       >Матрица</label
                     >
-                    <table id="deter_mat_table"></table>
+                    <div class="md-0" id="deter_mat_table"></div>
                   </div>
 
                   <div class="input-group mb-3">
@@ -110,9 +110,64 @@
                       class="form-control"
                       disabled
                     />
-                    <button type="submit" class="btn btn-primary" onclick="calcDet()">Вычислить</button>
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      onclick="calcDet()"
+                    >
+                      Вычислить
+                    </button>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Multi-->
+        <div>
+          <div class="row">
+            <h2 id="deter">Умножение матриц</h2>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Кол-во матриц для перемножения</span
+                    >
+                    <select
+                      class="form-select"
+                      aria-label="Размер матрицы"
+                      id="multi_mats_number"
+                      for="multi_mats"
+                      onchange="fillMultiMats(this)"
+                    >
+                      <option value="2" selected="selected">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                    </select>
+                  </div>
+
+                  <div id="multi_mats"></div>
+
+                  <div id="multi_mats_tables"></div>
+
+                  <div class="row mb-3">
+                    <label class="form-label" id="multi_result_span"></label>
+                  </div>
+
+                  <div id="multi_mats_result"></div>
+
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    onclick="calcMulti()"
+                  >
+                    Вычислить
+                  </button>
               </div>
             </div>
           </div>
@@ -140,38 +195,169 @@
     <script src="../gui.js"></script>
     <script src="../wolfram.js"></script>
     <script>
-      matInput = `<td><input id="ID" style="text-align:center;" value="0"></td>`;
+      matInput = `<div class="col md-0"><input id="ID" style="text-align:center;" class="form-control" onclick="$(this).val('')" value="0"></div>`;
+      matResult = `<div class="col md-0"><input id="ID" style="text-align:center;" class="form-control" disabled value="RES"></div>`;
 
+      matMultiTemp = `
+      <div class="input-group mb-3" id="Amat">
+                      <span class="input-group-text"
+                        >Размер матрицы A</span
+                      >
+                      <select
+                        class="form-select"
+                        aria-label="Размер матрицы A"
+                        id="matA_i_size"
+                        for="matA_i_table"
+                        onchange="resizeMultiMat(this)"
+                      >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected="selected">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                      </select>
+
+                      <span class="input-group-text">x</span>
+
+                      <select
+                        class="form-select"
+                        aria-label="Размер матрицы A"
+                        id="matA_j_size"
+                        for="matA_j_table"
+                        onchange="resizeMultiMat(this)"
+                      >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected="selected">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                      </select>
+                    </div>
+                    `;
+
+      matMultiTableTemp = `
+      <div class="mb-3">
+                      <label for="multi_matA_table" class="form-label"
+                        >Матрица A</label
+                      >
+                      <div class="md-0" id="multi_matA_table"></div>
+                    </div>`;
       function fillSquareMat(select) {
-        size = select.value;
-        table = $("#" + select.getAttribute("for"));
-        matTable = "";
-        for (i = 0; i < size; i++) {
-          matTable += "<tr>";
-          for (j = 0; j < size; j++) {
+        var size = select.value;
+        var table = $("#" + select.getAttribute("for"));
+        var matTable = "";
+        for (var i = 0; i < size; i++) {
+          matTable += '<div class="row g-0">';
+          for (var j = 0; j < size; j++) {
             matTable += matInput.replaceAll("ID", i + "_" + j);
           }
-          matTable += "</tr>";
+          matTable += "</div>";
+        }
+        table.html(matTable);
+      }
+
+      function fillMat(table, ik, jk) {
+        var matTable = "";
+        for (var i = 0; i < ik; i++) {
+          matTable += '<div class="row g-0">';
+          for (var j = 0; j < jk; j++) {
+            matTable += matInput.replaceAll("ID", i + "_" + j);
+          }
+          matTable += "</div>";
+        }
+        table.html(matTable);
+      }
+
+      function fillMatVal(table, A) {
+        var matTable = "";
+        for (var i = 0; i < A.length; i++) {
+          matTable += '<div class="row g-0">';
+          for (var j = 0; j < A[0].length; j++) {
+            matTable += matResult
+              .replaceAll("ID", i + "_" + j)
+              .replaceAll("RES", A[i][j]);
+          }
+          matTable += "</div>";
         }
         table.html(matTable);
       }
 
       fillSquareMat(document.getElementById("deter_mat_size"));
 
-      function calcDet(){
-        size = $("#deter_mat_size").val()
-        $("#deter_result").val(det(readMat($("#deter_mat_table"))))
+      function calcDet() {
+        var size = $("#deter_mat_size").val();
+        $("#deter_result").val(det(readMat($("#deter_mat_table"), size, size)));
       }
 
-      function readMat(parent){
-        A = []
-        for(i = 0; i < size; i++){
-            A[i] = []
-            for(j = 0; j < size; j++){
-                A[i][j] = parseInt(parent.find("#"+i+"_"+j).val())
-            }
+      function readMat(parent, ik, jk) {
+        var A = [];
+        for (var i = 0; i < ik; i++) {
+          A[i] = [];
+          for (var j = 0; j < jk; j++) {
+            A[i][j] = parseFloat(parent.find("#" + i + "_" + j).val());
+          }
         }
-        return A
+        return A;
+      }
+
+      function fillMultiMats(element) {
+        var size = parseInt(element.value);
+        var field = $("#" + element.getAttribute("for"));
+        var insert = matMultiTemp;
+        var insertTable = matMultiTableTemp;
+        var letter = "A";
+        for (i = 66; i < 65 + size; i++) {
+          insert += matMultiTemp.replaceAll("A", "&#" + i);
+          insertTable += matMultiTableTemp.replaceAll("A", "&#" + i);
+          letter += "*&#" + i;
+        }
+        field.html(insert);
+        $("#multi_mats_tables").html(insertTable);
+        $("#multi_result_span").html(letter);
+
+        for (var k = 65; k <= 64 + size; k++) {
+          var l = String.fromCharCode(k);
+          fillMat($("#multi_mat" + l + "_table"), 3, 3);
+        }
+      }
+      fillMultiMats(document.getElementById("multi_mats_number"));
+
+      function resizeMultiMat(mat_element) {
+        var mat = $(mat_element).parent().attr("id")[0];
+        var i = $("#mat" + mat + "_i_size").val();
+        var j = $("#mat" + mat + "_j_size").val();
+        fillMat($("#multi_mat" + mat + "_table"), i, j);
+      }
+
+      function calcMulti() {
+        var size = $("#multi_mats_number").val();
+        var arr = [];
+        var multi = [];
+        for (a = 0; a < size; a++) {
+          var l = String.fromCharCode(a + 65);
+          arr[a] = readMat(
+            $("#multi_mat" + l + "_table"),
+            $("#mat" + l + "_i_size").val(),
+            $("#mat" + l + "_j_size").val()
+          );
+          console.log(arr[a]);
+          if (a > 0) {
+            try{
+                multi = matMulti(multi, arr[a]);
+            }catch(e){
+                alert(e)
+                return
+            }
+          } else {
+            multi = arr[a];
+          }
+        }
+        console.log(multi);
+        fillMatVal($("#multi_mats_result"), multi);
       }
     </script>
   </body>
