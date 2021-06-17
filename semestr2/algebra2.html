@@ -124,6 +124,72 @@
           </div>
         </div>
 
+        <!--Determinator with param-->
+        <div>
+          <div class="row">
+            <h2 id="deter_param">Решение определителя с параметром</h2>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-text">
+                    Вычисление параметра определителя средствами Wolfram|Alpha. Параметр указывается любой удобной буквой.
+                    По нажатию кнопки тебя редиректнит на страницу вольфрама с
+                    решением.
+                  </p>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Размер матрицы</span
+                    >
+
+                    <select
+                      class="form-select"
+                      aria-label="Размер матрицы"
+                      id="deter_param_mat_size"
+                      for="deter_param_mat_table"
+                      onchange="fillSquareMat(this)"
+                    >
+                      <option value="1">1x1</option>
+                      <option value="2">2x2</option>
+                      <option value="3" selected="selected">3x3</option>
+                      <option value="4">4x4</option>
+                      <option value="5">5x5</option>
+                      <option value="6">6x6</option>
+                      <option value="7">7x7</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">Δ=</span>
+                    <input
+                      type="text"
+                      id="deter_param_result"
+                      class="form-control"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="deter_param_mat_table" class="form-label"
+                      >Матрица</label
+                    >
+                    <div class="md-0" id="deter_param_mat_table"></div>
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      onclick="calcDetWithParam()"
+                    >
+                      Вычислить
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!--Multi-->
         <div>
           <div class="row">
@@ -348,6 +414,7 @@
 
       fillSquareMat(document.getElementById("deter_mat_size"));
       fillSquareMat(document.getElementById("reverse_mat_size"));
+      fillSquareMat(document.getElementById("deter_param_mat_size"));
 
       function calcDet() {
         var size = $("#deter_mat_size").val();
@@ -361,6 +428,17 @@
           for (var j = 0; j < jk; j++) {
             A[i][j] = parseFloat(parent.find("#" + i + "_" + j).val());
             if (isNaN(A[i][j])) A[i][j] = 0;
+          }
+        }
+        return A;
+      }
+
+      function readRawMat(parent, ik, jk) {
+        var A = [];
+        for (var i = 0; i < ik; i++) {
+          A[i] = [];
+          for (var j = 0; j < jk; j++) {
+            A[i][j] = parent.find("#" + i + "_" + j).val();
           }
         }
         return A;
@@ -431,6 +509,13 @@
           $("#reverse_result").val("-1/" + -1 * det(A));
         }
         fillMatVal($("#reverse_mat_result"), algDop(trans(A)));
+      }
+
+      function calcDetWithParam() {
+        var size = $("#deter_param_mat_size").val();
+        var A = readRawMat($("#deter_param_mat_table"), size, size);
+        var res = $("#deter_param_result").val();
+        detParamRedirect(A, res);
       }
     </script>
   </body>

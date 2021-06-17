@@ -33,3 +33,17 @@ function diffRedirect() {
     );
   }
 }
+
+function detParamRedirect(A, res){
+  matStr = "det{"
+  for (var i = 0; i < A.length; i++) {
+    matStr += "{"
+    for (var j = 0; j < A[0].length; j++) {
+      matStr += A[i][j] + ","
+    }
+    matStr = matStr.slice(0, -1) + "},"
+  }
+  matStr = matStr.slice(0, -1) + "}="+res
+
+  window.open(wolframURL+encodeURIComponent(matStr))
+}
