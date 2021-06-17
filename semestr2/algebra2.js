@@ -3,11 +3,11 @@ function matMulti(A, B){
         throw "Матрицы не совместимы!"
     }
     var C = [];
-    m = A[0].length
+    var m = A[0].length
     
-    for(ci = 0; ci < A.length; ci++){
+    for(var ci = 0; ci < A.length; ci++){
         C[ci] = []
-        for(cj = 0; cj < B[0].length; cj++){
+        for(var cj = 0; cj < B[0].length; cj++){
             C[ci][cj] = 0
             for(p = 0; p < m; p++){
                 C[ci][cj] += A[ci][p]*B[p][cj]
@@ -33,25 +33,25 @@ function det(A){
             return A[0][0]*A[1][1]*A[2][2] + A[0][1]*A[1][2]*A[2][0] + A[0][2]*A[1][0]*A[2][1] - A[0][2]*A[1][1]*A[2][0] - A[0][0]*A[1][2]*A[2][1] - A[0][1]*A[1][0]*A[2][2]
     }
 
-    d = 0
-    for (i = 0; i < A.length; i++){
+    var d = 0
+    for (var i = 0; i < A.length; i++){
         d += (-1)^i * A[0][i] * det(M(0, i, A))
     }
     return d    
 }
 
 function M(ik, jk, A){
-    m = []
-    a = 0
-    b = 0
-    for(i = 0; i< A.length; i++){
+    var m = []
+    var a = 0
+    var b = 0
+    for(var i = 0; i< A.length; i++){
         b = 0
         if (i == ik){
             a = -1
             continue
         }
         m[(i+a)] = []
-        for(j = 0; j < A.length; j++){
+        for(var j = 0; j < A.length; j++){
             if(j == jk){
                 b = -1
                 continue
@@ -60,4 +60,29 @@ function M(ik, jk, A){
         }
     }
     return m
+}
+
+function algDop(A){
+    var B = []
+    for(var i = 0; i<A.length; i++){
+        B[i] = []
+        for(var j = 0; j < A[0].length; j++){
+            (det(M(i, j, A)))
+            B[i][j] = Math.pow(-1, i+j) * det(M(i, j, A))
+        }
+    }
+    return B
+}
+
+function trans(A){
+    var B = []
+    for(var k = 0; k<A[0].length; k++){
+        B[k] = []
+    }
+    for(var i = 0; i<A.length; i++){
+        for(var j = 0; j < A[0].length; j++){
+            B[j][i] = A[i][j]
+        }
+    }
+    return B
 }

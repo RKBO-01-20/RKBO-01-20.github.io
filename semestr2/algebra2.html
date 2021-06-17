@@ -127,7 +127,7 @@
         <!--Multi-->
         <div>
           <div class="row">
-            <h2 id="deter">Умножение матриц</h2>
+            <h2 id="multi">Умножение матриц</h2>
             <div class="col">
               <div class="card">
                 <div class="card-body">
@@ -168,6 +168,66 @@
                   >
                     Вычислить
                   </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Reverse-->
+        <div>
+          <div class="row">
+            <h2 id="reverse">Вычисление обратной матрицы</h2>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Размер матрицы</span
+                    >
+                    <select
+                      class="form-select"
+                      aria-label="Размер матрицы"
+                      id="reverse_mat_size"
+                      for="reverse_mat_table"
+                      onchange="fillSquareMat(this)"
+                    >
+                      <option value="1">1x1</option>
+                      <option value="2">2x2</option>
+                      <option value="3" selected="selected">3x3</option>
+                      <option value="4">4x4</option>
+                      <option value="5">5x5</option>
+                      <option value="6">6x6</option>
+                      <option value="7">7x7</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="reverse_mat_table" class="form-label"
+                      >Матрица</label
+                    >
+                    <div class="md-0" id="reverse_mat_table"></div>
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">A<sup>-1</sup></span>
+                    <input
+                      type="text"
+                      id="reverse_result"
+                      class="form-control"
+                      disabled
+                    />
+
+                    <div id="reverse_mat_result"></div>
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      onclick="calcReverse()"
+                    >
+                      Вычислить
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -287,6 +347,7 @@
       }
 
       fillSquareMat(document.getElementById("deter_mat_size"));
+      fillSquareMat(document.getElementById("reverse_mat_size"));
 
       function calcDet() {
         var size = $("#deter_mat_size").val();
@@ -344,20 +405,31 @@
             $("#mat" + l + "_i_size").val(),
             $("#mat" + l + "_j_size").val()
           );
-          console.log(arr[a]);
           if (a > 0) {
-            try{
-                multi = matMulti(multi, arr[a]);
-            }catch(e){
-                alert(e)
-                return
+            try {
+              multi = matMulti(multi, arr[a]);
+            } catch (e) {
+              alert(e);
+              return;
             }
           } else {
             multi = arr[a];
           }
         }
-        console.log(multi);
+        multi;
         fillMatVal($("#multi_mats_result"), multi);
+      }
+
+      function calcReverse() {
+        var size = $("#reverse_mat_size").val();
+        var A = readMat($("#reverse_mat_table"), size, size);
+        var d = det(A)
+        if (d > 0){
+            $("#reverse_result").val("1/" + det(A));
+        }else{
+            $("#reverse_result").val("-1/" + (-1*det(A)));
+        }
+        fillMatVal($("#reverse_mat_result"), algDop(trans(A)));
       }
     </script>
   </body>
