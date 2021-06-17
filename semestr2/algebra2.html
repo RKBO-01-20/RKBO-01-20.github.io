@@ -360,6 +360,7 @@
           A[i] = [];
           for (var j = 0; j < jk; j++) {
             A[i][j] = parseFloat(parent.find("#" + i + "_" + j).val());
+            if (isNaN(A[i][j])) A[i][j] = 0;
           }
         }
         return A;
@@ -423,11 +424,11 @@
       function calcReverse() {
         var size = $("#reverse_mat_size").val();
         var A = readMat($("#reverse_mat_table"), size, size);
-        var d = det(A)
-        if (d > 0){
-            $("#reverse_result").val("1/" + det(A));
-        }else{
-            $("#reverse_result").val("-1/" + (-1*det(A)));
+        var d = det(A);
+        if (d > 0) {
+          $("#reverse_result").val("1/" + det(A));
+        } else {
+          $("#reverse_result").val("-1/" + -1 * det(A));
         }
         fillMatVal($("#reverse_mat_result"), algDop(trans(A)));
       }
