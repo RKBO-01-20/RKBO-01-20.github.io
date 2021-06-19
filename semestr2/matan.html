@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="../main.css" />
+
+    <title>Шпаргалка матан</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">РКБО-01-20</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="algebra2.html">Алгебра</a>
+            </li>
+            <li class="nav-item dropdown active">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Матан
+              </a>
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdown"
+                id="navbar"
+              ></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Реклама нашего премиум акка-->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+      <div
+        id="toast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Не знаешь как решить это дерьмо?</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">
+          Бакланил весь семетр, а одногруппники душнилы, зажавшие решение? Не
+          беда, у нас есть премиум акк вольфрама для студентов. Благодаря ему ты
+          получишь:
+          <ul class="list-style">
+            <li>Пошаговое решения твоего дерьма</li>
+            <li>
+              В два раза ускоренное время выдачи ответа(не успеешь заварить
+              дошик)
+            </li>
+            <li>Кастомизация графиков(фапать на графики - бесценно)</li>
+          </ul>
+          Понравилось? А если я скажу, что за смешной ценник(в 10 раз меньше
+          официального) ты получишь этот желанный акк на год? Согласен? Тогда
+          беги быстрее к админу!
+        </div>
+      </div>
+    </div>
+
+    <main class="container">
+      <div class="text-center py-5 px-3">
+        <h1>Сессия по математическому анализу</h1>
+        <p class="lead">Шпоры и калькуляторы для сдачи матана.<br /></p>
+      </div>
+
+      <div class="row gy-5">
+        <!--Integral-->
+        <div>
+          <div class="row">
+            <h2 id="deter">Вычисление неопределённого интеграла</h2>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-text">
+                    Вычисление неопределённого интеграла по
+                    <var>x</var> средствами Wolfram|Alpha. По нажатию кнопки
+                    тебя редиректнит на страницу вольфрама с решением.
+                    <br />Пример синтаксиса на языке Wolfram:<br />
+                    <mark>inf</mark> - бесконечность.<br />
+                    <mark>CubeRoot(<var>x</var>)</mark> - кубический корень из
+                    <var>x</var>.<br />
+                    <mark>Root(<var>x</var>, <var>k</var>)</mark> - корень k
+                    степени из <var>x</var>.
+                  </p>
+
+                  <div class="mb-3">
+                    <div class="row">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">F=</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="integral"
+                          placeholder="подинтегральная функция"
+                          aria-label="Username"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">dx</span>
+                      </div>
+
+                      <div class="col">
+                        <button
+                          class="btn btn-primary"
+                          onclick="integralRedirect()"
+                        >
+                          Вычислить
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Definite integral-->
+        <div>
+          <div class="row">
+            <h2 id="deter">Вычисление определённого интеграла</h2>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-text">
+                    Вычисление определённого интеграла по
+                    <var>x</var> средствами Wolfram|Alpha. По нажатию кнопки
+                    тебя редиректнит на страницу вольфрама с решением.
+                  </p>
+
+                  <div class="mb-3">
+                    <div class="row">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">F=</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="definite_integral"
+                          placeholder="подинтегральная функция"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">dx</span>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">x=[</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="definite_integral_down"
+                          placeholder="нижний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">,</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="definite_integral_up"
+                          placeholder="верхний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">]</span>
+                      </div>
+
+                      <div class="col-md-6">
+                        <button
+                          class="btn btn-primary"
+                          onclick="definiteIntegralRedirect()"
+                        >
+                          Вычислить
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Definite double integral-->
+        <div>
+          <div class="row">
+            <h2 id="deter">Вычисление двойного интеграла</h2>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-text">
+                    Вычисление двойного интеграла по
+                    <var>x</var> и <var>y</var> средствами Wolfram|Alpha. По
+                    нажатию кнопки тебя редиректнит на страницу вольфрама с
+                    решением.
+                  </p>
+
+                  <div class="mb-3">
+                    <div class="row">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">F=</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="double_integral"
+                          placeholder="подинтегральная функция"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">
+                          <select
+                            class="form-select form-control"
+                            id="double_integral_select"
+                          >
+                            <option value="dydx" selected>dydx</option>
+                            <option value="dxdy">dxdy</option>
+                          </select>
+                        </span>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">x=[</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="double_integral_x_down"
+                          placeholder="нижний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">,</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="double_integral_x_up"
+                          placeholder="верхний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">]</span>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">y=[</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="double_integral_y_down"
+                          placeholder="нижний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">,</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="double_integral_y_up"
+                          placeholder="верхний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">]</span>
+                      </div>
+
+                      <div class="col-md-6">
+                        <button
+                          class="btn btn-primary"
+                          onclick="doubleIntegralRedirect()"
+                        >
+                          Вычислить
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Definite triple integral-->
+        <div>
+          <div class="row">
+            <h2 id="deter">Вычисление тройного интеграла</h2>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-text">
+                    Вычисление тройного интеграла по
+                    <var>x</var>, <var>y</var> и <var>z</var> средствами
+                    Wolfram|Alpha. По нажатию кнопки тебя редиректнит на
+                    страницу вольфрама с решением.
+                  </p>
+
+                  <div class="mb-3">
+                    <div class="row">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">F=</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="triple_integral"
+                          placeholder="подинтегральная функция"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">
+                          <select
+                            class="form-select form-control"
+                            id="triple_integral_select"
+                          >
+                            <option value="dxdydz" selected>dxdydz</option>
+                            <option value="dxdzdy">dxdzdy</option>
+                            <option value="dydxdz">dydxdz</option>
+                            <option value="dydzdx">dydzdx</option>
+                            <option value="dzdxdy">dzdxdy</option>
+                            <option value="dzdydx">dzdydx</option>
+                          </select>
+                        </span>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">x=[</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="triple_integral_x_down"
+                          placeholder="нижний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">,</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="triple_integral_x_up"
+                          placeholder="верхний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">]</span>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">y=[</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="triple_integral_y_down"
+                          placeholder="нижний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">,</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="triple_integral_y_up"
+                          placeholder="верхний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">]</span>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">z=[</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="triple_integral_z_down"
+                          placeholder="нижний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">,</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="triple_integral_z_up"
+                          placeholder="верхний предел"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text">]</span>
+                      </div>
+
+                      <div class="col-md-6">
+                        <button
+                          class="btn btn-primary"
+                          onclick="tripleIntegralRedirect()"
+                        >
+                          Вычислить
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted"
+          >Собственность группы РКБО-01-20. Изготовил сие поделие
+          <a href="https://github.com/GreenFantomas">GreenFantomas</a></span
+        >
+      </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="../gui.js"></script>
+    <script src="../wolfram.js"></script>
+    <script>
+      // чо смотришь?
+      $(document).ready(function () {
+        $("#toast").toast({ delay: 40000 });
+        setTimeout(() => {
+          $("#toast").toast("show");
+        }, 5000);
+      });
+    </script>
+  </body>
+</html>
